@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { BookOpen } from '@phosphor-icons/react';
@@ -9,8 +9,14 @@ const Register = () => {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { register } = useAuth();
+  const { register, user } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user && user !== false) {
+      navigate('/customer');
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,8 +27,7 @@ const Register = () => {
     setLoading(false);
 
     if (result.success) {
-      navigate('/customer');
-      window.location.reload();
+      // Navigation will be handled by useEffect after user state updates
     } else {
       setError(result.error);
     }

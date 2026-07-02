@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { BookOpen } from '@phosphor-icons/react';
@@ -8,8 +8,18 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user && user !== false) {
+      if (user.role === 'admin') {
+        navigate('/admin');
+      } else {
+        navigate('/customer');
+      }
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,13 +30,7 @@ const Login = () => {
     setLoading(false);
 
     if (result.success) {
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
-      if (user.role === 'admin') {
-        navigate('/admin');
-      } else {
-        navigate('/customer');
-      }
-      window.location.reload();
+      // Navigation will be handled by useEffect after user state updates
     } else {
       setError(result.error);
     }
