@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -32,15 +32,7 @@ const AdminDashboard = () => {
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (user?.role !== 'admin') {
-      navigate('/customer');
-    } else {
-      fetchAnalytics();
-    }
-  }, [user, navigate]);
-
-  const fetchAnalytics = async () => {
+  const fetchAnalytics = useCallback(async () => {
     try {
       const response = await axios.get(`${API}/analytics/dashboard`, {
         withCredentials: true,
@@ -51,7 +43,15 @@ const AdminDashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (user?.role !== 'admin') {
+      navigate('/customer');
+    } else {
+      fetchAnalytics();
+    }
+  }, [user, navigate, fetchAnalytics]);
 
   const handleLogout = async () => {
     await logout();

@@ -558,8 +558,8 @@ const BooksManagement = () => {
                           ✗ Errors: {importResult.error_count}
                         </p>
                         <div className="bg-white border-2 border-[#0A0A0A] p-3 max-h-32 overflow-y-auto">
-                          {importResult.errors.map((error, idx) => (
-                            <p key={idx} className="text-xs font-medium text-[#FF3B30] mb-1">
+                          {importResult.errors.map((error) => (
+                            <p key={error} className="text-xs font-medium text-[#FF3B30] mb-1">
                               {error}
                             </p>
                           ))}

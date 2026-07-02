@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Plus, Pencil, Trash } from '@phosphor-icons/react';
 import { toast } from 'sonner';
@@ -12,11 +12,7 @@ const BookshelvesManagement = () => {
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({ name: '', description: '' });
 
-  useEffect(() => {
-    fetchBookshelves();
-  }, []);
-
-  const fetchBookshelves = async () => {
+  const fetchBookshelves = useCallback(async () => {
     try {
       const response = await axios.get(`${API}/bookshelves`, { withCredentials: true });
       setBookshelves(response.data);
@@ -25,7 +21,11 @@ const BookshelvesManagement = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchBookshelves();
+  }, [fetchBookshelves]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

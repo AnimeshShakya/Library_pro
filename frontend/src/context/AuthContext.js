@@ -24,10 +24,6 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
   const checkAuth = async () => {
     try {
       const response = await axios.get(`${API}/auth/me`, {
@@ -83,6 +79,10 @@ export const AuthProvider = ({ children }) => {
       console.error('Logout error:', error);
     }
   };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, loading, login, register, logout, checkAuth }}>

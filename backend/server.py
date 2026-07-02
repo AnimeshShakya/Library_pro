@@ -401,7 +401,9 @@ async def create_book(book: BookCreate, current_user: dict = Depends(get_current
         bookshelf = await db.bookshelves.find_one({"_id": ObjectId(book.bookshelf_id)})
         if not bookshelf:
             raise HTTPException(status_code=404, detail="Bookshelf not found")
-    except:
+    except HTTPException:
+        raise
+    except Exception:
         raise HTTPException(status_code=404, detail="Invalid bookshelf ID")
     
     book_doc = {

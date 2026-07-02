@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { TrendUp } from '@phosphor-icons/react';
@@ -11,11 +11,7 @@ const AnalyticsDashboard = () => {
   const [salesData, setSalesData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchSalesAnalytics();
-  }, []);
-
-  const fetchSalesAnalytics = async () => {
+  const fetchSalesAnalytics = useCallback(async () => {
     try {
       const response = await axios.get(`${API}/analytics/sales`, { withCredentials: true });
       setSalesData(response.data.monthly_sales);
@@ -24,7 +20,11 @@ const AnalyticsDashboard = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchSalesAnalytics();
+  }, [fetchSalesAnalytics]);
 
   return (
     <div data-testid="analytics-dashboard">

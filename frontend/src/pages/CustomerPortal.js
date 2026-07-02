@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
@@ -27,32 +27,32 @@ const CustomerPortal = () => {
   const [myMemberships, setMyMemberships] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const fetchData = useCallback(async () => {
+    try {
+      const [booksRes, loansRes, reservationsRes, membershipsRes] = await Promise.all([
+        axios.get(`${API}/books`, { withCredentials: true }).catch(err => ({ data: [] })),
+        axios.get(`${API}/loans`, { withCredentials: true }).catch(err => ({ data: [] })),
+        axios.get(`${API}/reservations`, { withCredentials: true }).catch(err => ({ data: [] })),
+        axios.get(`${API}/memberships`, { withCredentials: true }).catch(err => ({ data: [] })),
+      ]);
+      setBooks(booksRes.data || []);
+      setMyLoans(loansRes.data || []);
+      setMyReservations(reservationsRes.data || []);
+      setMyMemberships(membershipsRes.data || []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (user?.role === 'admin') {
       navigate('/admin');
     } else {
       fetchData();
     }
-  }, [user, navigate]);
-
-  const fetchData = async () => {
-    try {
-      const [booksRes, loansRes, reservationsRes, membershipsRes] = await Promise.all([
-        axios.get(`${API}/books`, { withCredentials: true }),
-        axios.get(`${API}/loans`, { withCredentials: true }),
-        axios.get(`${API}/reservations`, { withCredentials: true }),
-        axios.get(`${API}/memberships`, { withCredentials: true }),
-      ]);
-      setBooks(booksRes.data);
-      setMyLoans(loansRes.data);
-      setMyReservations(reservationsRes.data);
-      setMyMemberships(membershipsRes.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [user, navigate, fetchData]);
 
   const handleReserve = async (bookId) => {
     try {

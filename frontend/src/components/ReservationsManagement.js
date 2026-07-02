@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Bookmark } from '@phosphor-icons/react';
 import { toast } from 'sonner';
@@ -11,11 +11,7 @@ const ReservationsManagement = () => {
   const [reservations, setReservations] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchReservations();
-  }, []);
-
-  const fetchReservations = async () => {
+  const fetchReservations = useCallback(async () => {
     try {
       const response = await axios.get(`${API}/reservations`, { withCredentials: true });
       setReservations(response.data);
@@ -24,7 +20,11 @@ const ReservationsManagement = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchReservations();
+  }, [fetchReservations]);
 
   return (
     <div data-testid="reservations-management">
