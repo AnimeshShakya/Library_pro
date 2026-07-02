@@ -49,9 +49,11 @@ const CustomerPortal = () => {
   }, []);
 
   useEffect(() => {
-    if (user?.role === 'admin') {
+    if (user === false) {
+      navigate('/login');
+    } else if (user && user.role === 'admin') {
       navigate('/admin');
-    } else {
+    } else if (user && user.role === 'customer') {
       fetchData();
     }
   }, [user, navigate, fetchData]);

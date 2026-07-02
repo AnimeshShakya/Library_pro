@@ -48,9 +48,9 @@ const AdminDashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (user?.role !== 'admin') {
-      navigate('/customer');
-    } else {
+    if (user === false || (user && user.role !== 'admin')) {
+      navigate('/login');
+    } else if (user && user.role === 'admin') {
       fetchAnalytics();
     }
   }, [user, navigate, fetchAnalytics]);

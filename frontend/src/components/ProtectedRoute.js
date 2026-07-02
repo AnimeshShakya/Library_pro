@@ -16,7 +16,7 @@ const ProtectedRoute = ({ children, adminOnly = false }) => {
     );
   }
 
-  if (!user) {
+  if (!user || user === false) {
     return <Navigate to="/login" replace />;
   }
 
