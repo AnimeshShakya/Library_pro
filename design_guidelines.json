@@ -1,0 +1,107 @@
+{
+  "theme": "light",
+  "archetype": "4 (Swiss & High-Contrast with Neo-Brutalist Color Blocks)",
+  "concept": "A professional yet highly vibrant library management dashboard. It uses a stark white and deep black structural skeleton (Swiss style) injected with highly saturated, bold color blocks to make managing books, tracking inventory, and handling memberships an energetic and highly legible experience. This aligns with the 'Bold and colorful design style' request without sacrificing the 'professional, fully dynamic SaaS' requirement for local library store owners.",
+  "colors": {
+    "background": "#FDFDFD",
+    "surface": "#FFFFFF",
+    "text_primary": "#0A0A0A",
+    "text_secondary": "#52525B",
+    "border": "#0A0A0A",
+    "primary": "#0055FF",
+    "primary_hover": "#0044CC",
+    "secondary": "#FF007F",
+    "accent_yellow": "#FFD600",
+    "accent_red": "#FF3B30",
+    "accent_green": "#00E676",
+    "muted": "#F4F4F5"
+  },
+  "typography": {
+    "headings": {
+      "family": "Outfit",
+      "weights": ["700", "900"],
+      "tracking": "tracking-tighter",
+      "instruction": "Do not use Inter. Use Outfit for large, bold, high-impact section headers and metric numbers."
+    },
+    "body": {
+      "family": "IBM Plex Sans",
+      "weights": ["400", "500", "600"],
+      "instruction": "Use IBM Plex Sans for tables, data grids, and forms to ensure technical precision and readability."
+    },
+    "hierarchy": {
+      "h1": "text-4xl md:text-5xl font-black uppercase",
+      "h2": "text-2xl md:text-3xl font-bold",
+      "h3": "text-xl font-bold",
+      "metric": "text-5xl md:text-6xl font-black tracking-tighter",
+      "body": "text-base font-medium",
+      "small": "text-sm font-medium uppercase tracking-widest"
+    }
+  },
+  "layout_and_spacing": {
+    "grid_system": "MODE B: THE 'CONTROL ROOM' GRID",
+    "spacing_scale": "p-4, p-6, p-8. Generous padding inside cards, tight gaps (gap-4 or gap-6) between dashboard widgets.",
+    "border_radius": "rounded-none or rounded-sm (max 4px). Sharp, precise edges.",
+    "shadows": "Hard solid shadows for neo-brutalist feel: shadow-[4px_4px_0px_0px_rgba(10,10,10,1)]. Remove shadow on press: active:translate-x-1 active:translate-y-1 active:shadow-none.",
+    "alignment": "Left-align all tabular data and headers. Dashboard should feel highly dense but logically separated by stark borders."
+  },
+  "components": {
+    "strategy": "Shadcn heavily customized. Strip the default Vercel-look (soft shadows, light grey borders) and apply stark black borders (border-2 border-black) with hard block shadows.",
+    "cards": "Flat white backgrounds, border-2 border-black, solid black block shadows. For metric cards, use bright background colors (Yellow, Blue, Green, Pink) with black text.",
+    "buttons": "Thick borders, high contrast. Primary actions use #0055FF or #0A0A0A background with white text. Hover states must explicitly set text color.",
+    "tables": "border-collapse. Every row has a solid border-b border-black. High density. Striped rows using muted color (#F4F4F5).",
+    "forms": "Inputs must have border-2 border-black, bg-white, hard corners. Focus state: focus:ring-0 focus:border-primary focus:shadow-[4px_4px_0px_0px_var(--primary-color)].",
+    "navigation": "Collapsible left-sidebar with high-contrast active states (e.g., solid black background for active item, white text)."
+  },
+  "icons": {
+    "library": "@phosphor-icons/react",
+    "style": "Bold or Duotone weights to match the heavy typographic style.",
+    "installation_command": "yarn add @phosphor-icons/react"
+  },
+  "features_to_implement": {
+    "dashboard_home": "High-level metrics (Total Books, Active Loans, Late Returns, Monthly Revenue) using large typography and vivid color blocks.",
+    "book_management": "CRUD for books. Categorization via 'Custom Bookshelves' (visually represented as vibrant tags). Include 'Low Stock' red alerts.",
+    "lending_system": "Issue/Return interface. Calculate late fees dynamically based on return dates.",
+    "reservations": "Waitlist for books. Highlight reserved books in Yellow.",
+    "memberships": "Customer database with Subscription status (Active/Expired).",
+    "scanner_simulation": "A UI module simulating barcode/QR scanning (e.g., a modal with a camera viewfinder overlay and input field).",
+    "roles": "Admin view (full control, reports) vs. Customer view (browse catalog, reserve books, check personal loans)."
+  },
+  "media": {
+    "instructions": "Use these exact image URLs where photographic assets are needed. Do not use placeholders.",
+    "images": {
+      "library_interiors": [
+        {
+          "url": "https://images.pexels.com/photos/11868576/pexels-photo-11868576.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+          "description": "Bright modern library space. Use for login background or admin dashboard hero."
+        },
+        {
+          "url": "https://images.pexels.com/photos/31390421/pexels-photo-31390421.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+          "description": "Wooden bookshelves. Use for Customer portal header."
+        }
+      ],
+      "books": [
+        {
+          "url": "https://images.pexels.com/photos/29458840/pexels-photo-29458840.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+          "description": "Vibrant book covers. Use as thumbnails for top-selling or featured books."
+        },
+        {
+          "url": "https://images.pexels.com/photos/33318131/pexels-photo-33318131.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+          "description": "Hand picking a colorful book. Use in the reservation/lending feature sections."
+        }
+      ]
+    }
+  },
+  "accessibility_and_testing": {
+    "contrast": "Ensure text over colorful backgrounds meets APCA standards. Black text on Yellow/Pink/Green, White text on Blue/Black.",
+    "testing": "All interactive elements (buttons, inputs, table rows) MUST include role-based data-testid attributes (e.g., data-testid='checkout-book-button')."
+  },
+  "instructions_to_main_agent": [
+    "Strictly follow the Neo-Brutalist color block aesthetic. Do not add soft drop shadows (shadow-md/lg).",
+    "Use Phosphor icons for all iconography.",
+    "Implement the two distinct roles (Admin/Customer) with a toggle or mock authentication layer.",
+    "Create the 'Bookshelf' abstraction where Admin can create named shelves and assign books to them.",
+    "Build the dashboard using Recharts for sales/lending reports.",
+    "Include a dynamic Late Fee calculator in the Returns flow.",
+    "All forms MUST be built with Shadcn components customized to match the hard-border aesthetic."
+  ]
+}
