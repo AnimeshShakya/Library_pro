@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext(null);
@@ -76,7 +76,9 @@ export const AuthProvider = ({ children }) => {
       await axios.post(`${API}/auth/logout`, {}, { withCredentials: true });
       setUser(false);
     } catch (error) {
-      console.error('Logout error:', error);
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Logout error:', error);
+      }
     }
   };
 
@@ -84,8 +86,13 @@ export const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
 
+  const contextValue = useMemo(
+    () => ({ user, loading, login, register, logout, checkAuth }),
+    [user, loading, login, register, logout, checkAuth]
+  );
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, checkAuth }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );

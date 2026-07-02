@@ -7,6 +7,16 @@ import { toast } from 'sonner';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+const tooltipStyle = {
+  backgroundColor: 'white',
+  border: '2px solid #0A0A0A',
+  borderRadius: '0',
+  fontWeight: 600,
+  fontFamily: 'IBM Plex Sans',
+};
+
+const axisStyle = { fontWeight: 600, fontSize: '12px', fontFamily: 'IBM Plex Sans' };
+
 const AnalyticsDashboard = () => {
   const [salesData, setSalesData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -53,21 +63,13 @@ const AnalyticsDashboard = () => {
                 <XAxis
                   dataKey="month"
                   stroke="#0A0A0A"
-                  style={{ fontWeight: 600, fontSize: '12px', fontFamily: 'IBM Plex Sans' }}
+                  style={axisStyle}
                 />
                 <YAxis
                   stroke="#0A0A0A"
-                  style={{ fontWeight: 600, fontSize: '12px', fontFamily: 'IBM Plex Sans' }}
+                  style={axisStyle}
                 />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'white',
-                    border: '2px solid #0A0A0A',
-                    borderRadius: '0',
-                    fontWeight: 600,
-                    fontFamily: 'IBM Plex Sans',
-                  }}
-                />
+                <Tooltip contentStyle={tooltipStyle} />
                 <Bar dataKey="revenue" fill="#0055FF" stroke="#0A0A0A" strokeWidth={2} />
               </BarChart>
             </ResponsiveContainer>
@@ -81,21 +83,13 @@ const AnalyticsDashboard = () => {
                 <XAxis
                   dataKey="month"
                   stroke="#0A0A0A"
-                  style={{ fontWeight: 600, fontSize: '12px', fontFamily: 'IBM Plex Sans' }}
+                  style={axisStyle}
                 />
                 <YAxis
                   stroke="#0A0A0A"
-                  style={{ fontWeight: 600, fontSize: '12px', fontFamily: 'IBM Plex Sans' }}
+                  style={axisStyle}
                 />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: 'white',
-                    border: '2px solid #0A0A0A',
-                    borderRadius: '0',
-                    fontWeight: 600,
-                    fontFamily: 'IBM Plex Sans',
-                  }}
-                />
+                <Tooltip contentStyle={tooltipStyle} />
                 <Bar dataKey="loans" fill="#FF007F" stroke="#0A0A0A" strokeWidth={2} />
               </BarChart>
             </ResponsiveContainer>
