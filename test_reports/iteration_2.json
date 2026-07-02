@@ -1,0 +1,22 @@
+{
+  "summary": "Tested Bulk Import CSV/Excel feature end-to-end. Backend endpoints (POST /api/books/bulk-import, GET /api/books/import-template) work correctly with cookie-based admin auth. Frontend Books page shows green 'Bulk Import' button next to 'New Book', modal displays required columns (title, author, isbn, bookshelf_name, quantity, price) and optional (description), Download Template CSV button present, file selection shows filename + size, import returns 'Import Results' green box (Total Rows: 2, Success: 2), toast 'Imported 2 books successfully' shown, and books list auto-refreshes with new books visible in the table.",
+  "tested_scope": ["backend", "frontend", "integration"],
+  "passed": [
+    "Login as admin@library.com works (cookie session)",
+    "GET /api/books/import-template returns 200 with proper CSV header + sample rows",
+    "POST /api/books/bulk-import (valid CSV, 5 rows) -> 200, success_count=5, error_count=0",
+    "POST /api/books/bulk-import (error CSV) -> success_count=2, error_count=3 with clear error messages: 'Row 3: Missing required fields (title, author, or isbn)', 'Row 4: Bookshelf \\'NonExistentShelf\\' not found', 'Row 5: Invalid quantity or price'",
+    "Bulk Import button (green) visible on Books page next to New Book",
+    "Modal shows Required Columns, Optional description, Download Template CSV button, and accepted formats CSV/XLSX/XLS (MAX 10MB)",
+    "File upload shows 'Selected: ui_test_books.csv' with 'Size: 0.19 KB'",
+    "Import Books button triggers upload; result box shows Total Rows: 2, Success: 2 in green",
+    "Toast notification 'Imported 2 books successfully' displayed",
+    "Books list auto-refreshes and imported books (UI Test Book A/B) appear in the table"
+  ],
+  "failed": [],
+  "action_items": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "retest_needed": false,
+  "full_testing_deferred": true,
+  "notes": "Error-case UI display of the errors list (red box) was not explicitly re-verified in UI (backend confirmed correct error strings). Recommended for full-testing pass. All primary features working."
+}

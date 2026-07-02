@@ -1,34 +1,83 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+.App {
+  min-height: 100vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+.neo-brutal-card {
+  background: white;
+  border: 2px solid #0A0A0A;
+  box-shadow: 4px 4px 0px 0px rgba(10, 10, 10, 1);
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.neo-brutal-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px 0px rgba(10, 10, 10, 1);
 }
 
-.App-link {
-    color: #61dafb;
+.neo-brutal-btn {
+  border: 2px solid #0A0A0A;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  box-shadow: 4px 4px 0px 0px rgba(10, 10, 10, 1);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.neo-brutal-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0px 0px rgba(10, 10, 10, 1);
+}
+
+.neo-brutal-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+}
+
+.neo-brutal-input {
+  border: 2px solid #0A0A0A;
+  background: white;
+  border-radius: 0;
+}
+
+.neo-brutal-input:focus {
+  outline: none;
+  border-color: #0055FF;
+  box-shadow: 4px 4px 0px 0px #0055FF;
+}
+
+.metric-card-blue {
+  background: #0055FF;
+  color: white;
+}
+
+.metric-card-pink {
+  background: #FF007F;
+  color: white;
+}
+
+.metric-card-yellow {
+  background: #FFD600;
+  color: #0A0A0A;
+}
+
+.metric-card-green {
+  background: #00E676;
+  color: #0A0A0A;
+}
+
+.metric-card-red {
+  background: #FF3B30;
+  color: white;
+}
+
+.sidebar-link {
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-link:hover {
+  background-color: #F4F4F5;
+}
+
+.sidebar-link.active {
+  background-color: #0A0A0A;
+  color: white;
 }
